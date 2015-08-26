@@ -1,0 +1,49 @@
+{
+  "name": "northern911-api",
+  "version": "0.1.0",
+  "author": "anvk",
+  "main": "dist/northern911-api.js",
+  "description": "",
+  "contributors": [
+    {
+      "name": "Alexey Novak",
+      "email": "alexey.novak.mail@gmail.com"
+    }
+  ],
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --reporter spec test/*"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:anvk/northern911-api.git"
+  },
+  "keywords": [
+    "911",
+    "Northern",
+    "API",
+    "SOAP"
+  ],
+  "dependencies": {
+    "soap": "0.9.1",
+    "md5": "2.0.0",
+    "moment": "2.10.6"
+  },
+  "devDependencies": {
+    "babel": "5.6.5",
+    "chai": "3.0.0",
+    "gulp": "3.9.0",
+    "gulp-babel": "5.1.0",
+    "gulp-mocha": "2.1.2",
+    "mocha": "2.2.5"
+  },
+  "engine": "node >= 0.10.x",
+  "homepage": "https://github.com/anvk/northern911-api",
+  "bugs": {
+    "url": "https://github.com/anvk/northern911-api/issues"
+  },
+  "private": false,
+  "license": "MIT"
+}
