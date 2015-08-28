@@ -44,6 +44,8 @@ $ npm install northern911-api --save
 > `options.phoneNumber` - Customer phone number. Must be 10 digits  
 > `options.lastName` - Last name or company name  
 > `options.firstName` - First name  
+> `options.lastDateTimeModified` - Last date modified  
+> `options.lastDateTimeModifiedUnixTime` - Last date modified in Unix time  
 > `options.streetNumber` - Street number  
 > `options.suiteApt` - Suite or apartment number  
 > `options.streetName` - Street name  
@@ -61,6 +63,8 @@ $ npm install northern911-api --save
 > `options.phoneNumber` - Customer phone number. Must be 10 digits  
 > `options.lastName` - Last name or company name  
 > `options.firstName` - First name  
+> `options.lastDateTimeModified` - Last date modified  
+> `options.lastDateTimeModifiedUnixTime` - Last date modified in Unix time  
 > `options.streetNumber` - Street number  
 > `options.suiteApt` - Suite or apartment number  
 > `options.streetName` - Street name  
@@ -88,7 +92,33 @@ $ npm install northern911-api --save
 
 ## Usage
 
-TBD
+```javascript
+var Northern911API = require('northern911-api');
+
+var northern911API = new Northern911API({
+  vendorCode: '',   // put your vendor code here
+  password: '',     // put your vendor password here
+  sandbox: true
+});
+
+northern911API.connect(function(error) {
+  if (error) {
+    return console.error(error);
+  }
+
+  northern911API.queryCustomer('6479250483', function(error, result, body) {
+    console.log(body);
+    console.log();
+    console.log(result);
+
+    if (error) {
+      console.error(error);
+    }
+  });
+});
+```
+
+For more examples check `example.js`
 
 ## Example
 

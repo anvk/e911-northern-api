@@ -39,6 +39,11 @@ var Northern911API = (function () {
     this._url = 'https://addressinfo.northern911.com/soap/Service.svc?wsdl';
     this._urlSandbox = 'https://soapdev.northern911.com/soap/Service.svc?wsdl';
     this._dateFormat = 'YYYYMMDD';
+    this._envelopeProperties = {
+      soapenv: 'http://schemas.xmlsoap.org/soap/envelope/',
+      tem: 'http://tempuri.org/',
+      ns: 'http://schemas.datacontract.org/2004/07/'
+    };
     this._client = undefined;
   }
 
@@ -49,6 +54,13 @@ var Northern911API = (function () {
 
       _soap2['default'].createClient(this.url, function (error, client) {
         _this._client = client;
+
+        for (var key in _this._envelopeProperties) {
+          _this._client.wsdl.definitions.xmlns[key] = _this._envelopeProperties[key];
+        }
+
+        _this._client.wsdl.xmlnsInEnvelope = _this._client.wsdl._xmlnsMap();
+
         callback(error);
       });
     }
@@ -96,18 +108,20 @@ var Northern911API = (function () {
 
       var args = {
         customer: {
-          VENDOR_CODE: this._vendorCode,
-          PHONE_NUMBER: options.phoneNumber,
-          LAST_NAME: options.lastName || '',
-          FIRST_NAME: options.firstName || '',
-          STREET_NUMBER: options.streetNumber,
-          SUITE_APT: options.suiteApt || '',
-          STREET_NAME: options.streetName,
-          CITY: options.city,
-          PROVINCE_STATE: options.provinceState,
-          POSTAL_CODE_ZIP: options.postalCodeZip,
-          OTHER_ADDRESS_INFO: options.otherAddressInfo || '',
-          ENHANCED_CAPABLE: options.enhancedCapable
+          'ns:CITY': options.city,
+          'ns:ENHANCED_CAPABLE': options.enhancedCapable,
+          'ns:FIRST_NAME': options.firstName || '',
+          'ns:LAST_DATETIME_MODIFIED': options.lastDateTimeModified || '',
+          'ns:LAST_DATETIME_MODIFIED_UNIXTIME': options.lastDateTimeModifiedUnixTime || '',
+          'ns:LAST_NAME': options.lastName || '',
+          'ns:OTHER_ADDRESS_INFO': options.otherAddressInfo || '',
+          'ns:PHONE_NUMBER': options.phoneNumber,
+          'ns:POSTAL_CODE_ZIP': options.postalCodeZip,
+          'ns:PROVINCE_STATE': options.provinceState,
+          'ns:STREET_NAME': options.streetName,
+          'ns:STREET_NUMBER': options.streetNumber,
+          'ns:SUITE_APT': options.suiteApt || '',
+          'ns:VENDOR_CODE': this._vendorCode
         },
         hash: this.hash
       };
@@ -129,18 +143,20 @@ var Northern911API = (function () {
 
       var args = {
         customer: {
-          VENDOR_CODE: this._vendorCode,
-          PHONE_NUMBER: options.phoneNumber,
-          LAST_NAME: options.lastName || '',
-          FIRST_NAME: options.firstName || '',
-          STREET_NUMBER: options.streetNumber,
-          SUITE_APT: options.suiteApt || '',
-          STREET_NAME: options.streetName,
-          CITY: options.city,
-          PROVINCE_STATE: options.provinceState,
-          POSTAL_CODE_ZIP: options.postalCodeZip,
-          OTHER_ADDRESS_INFO: options.otherAddressInfo || '',
-          ENHANCED_CAPABLE: options.enhancedCapable
+          'ns:CITY': options.city,
+          'ns:ENHANCED_CAPABLE': options.enhancedCapable,
+          'ns:FIRST_NAME': options.firstName || '',
+          'ns:LAST_DATETIME_MODIFIED': options.lastDateTimeModified || '',
+          'ns:LAST_DATETIME_MODIFIED_UNIXTIME': options.lastDateTimeModifiedUnixTime || '',
+          'ns:LAST_NAME': options.lastName || '',
+          'ns:OTHER_ADDRESS_INFO': options.otherAddressInfo || '',
+          'ns:PHONE_NUMBER': options.phoneNumber,
+          'ns:POSTAL_CODE_ZIP': options.postalCodeZip,
+          'ns:PROVINCE_STATE': options.provinceState,
+          'ns:STREET_NAME': options.streetName,
+          'ns:STREET_NUMBER': options.streetNumber,
+          'ns:SUITE_APT': options.suiteApt || '',
+          'ns:VENDOR_CODE': this._vendorCode
         },
         hash: this.hash
       };
