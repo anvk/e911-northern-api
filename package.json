@@ -1,6 +1,6 @@
 {
   "name": "northern911-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "anvk",
   "main": "dist/northern911-api.js",
   "description": "",
@@ -27,9 +27,10 @@
     "SOAP"
   ],
   "dependencies": {
-    "soap": "0.9.1",
+    "lodash.isempty": "3.0.4",
     "md5": "2.0.0",
-    "moment": "2.10.6"
+    "moment": "2.10.6",
+    "soap": "0.9.1"
   },
   "devDependencies": {
     "babel": "5.6.5",

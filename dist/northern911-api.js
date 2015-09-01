@@ -22,6 +22,10 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _lodashIsempty = require('lodash.isempty');
+
+var _lodashIsempty2 = _interopRequireDefault(_lodashIsempty);
+
 var Northern911API = (function () {
   function Northern911API() {
     var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -55,6 +59,8 @@ var Northern911API = (function () {
       _soap2['default'].createClient(this.url, function (error, client) {
         _this._client = client;
 
+        // this is a HACK. Need to add it as per:
+        // https://github.com/vpulim/node-soap/issues/672
         for (var key in _this._envelopeProperties) {
           _this._client.wsdl.definitions.xmlns[key] = _this._envelopeProperties[key];
         }
@@ -77,7 +83,25 @@ var Northern911API = (function () {
         hash: this.hash
       };
 
-      this._client.QueryCustomer(args, callback);
+      this._client.QueryCustomer(args, function (error, result, body) {
+
+        // this is a HACK. We need to convert all empty objects into empty strings
+        // https://github.com/vpulim/node-soap/issues/707
+        console.log(result);
+        console.log(result.QueryCustomerResult);
+        console.log(result.QueryCustomerResult.Customer);
+        if (result.QueryCustomerResult && result.QueryCustomerResult.Customer) {
+          console.log(result.QueryCustomerResult.Customer);
+          for (var key in result.QueryCustomerResult.Customer) {
+            console.log(result.QueryCustomerResult.Customer[key]);
+            if ((0, _lodashIsempty2['default'])(result.QueryCustomerResult.Customer[key])) {
+              result.QueryCustomerResult.Customer[key] = '';
+            }
+          }
+        }
+
+        callback(error, result, body);
+      });
     }
   }, {
     key: 'getVendorDumpURL',

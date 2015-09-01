@@ -3,6 +3,7 @@
 import soap from 'soap';
 import md5 from 'md5';
 import moment from 'moment';
+import isEmpty from 'lodash.isempty';
 
 export default class Northern911API {
 
@@ -27,6 +28,8 @@ export default class Northern911API {
     soap.createClient(this.url, (error, client) => {
       this._client = client;
 
+      // this is a HACK. Need to add it as per:
+      // https://github.com/vpulim/node-soap/issues/672
       for (let key in this._envelopeProperties) {
         this._client.wsdl.definitions.xmlns[key] =
           this._envelopeProperties[key];
@@ -50,7 +53,25 @@ export default class Northern911API {
       hash: this.hash
     };
 
-    this._client.QueryCustomer(args, callback);
+    this._client.QueryCustomer(args, (error, result, body) => {
+
+      // this is a HACK. We need to convert all empty objects into empty strings
+      // https://github.com/vpulim/node-soap/issues/707
+      console.log(result);
+      console.log(result.QueryCustomerResult);
+      console.log(result.QueryCustomerResult.Customer);
+      if (result.QueryCustomerResult && result.QueryCustomerResult.Customer) {
+        console.log(result.QueryCustomerResult.Customer);
+        for (let key in result.QueryCustomerResult.Customer) {
+          console.log(result.QueryCustomerResult.Customer[key]);
+          if (isEmpty(result.QueryCustomerResult.Customer[key])) {
+            result.QueryCustomerResult.Customer[key] = '';
+          }
+        }
+      }
+
+      callback(error, result, body);
+    });
   }
 
   getVendorDumpURL(callback) {
