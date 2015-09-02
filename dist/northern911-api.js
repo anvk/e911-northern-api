@@ -87,13 +87,8 @@ var Northern911API = (function () {
 
         // this is a HACK. We need to convert all empty objects into empty strings
         // https://github.com/vpulim/node-soap/issues/707
-        console.log(result);
-        console.log(result.QueryCustomerResult);
-        console.log(result.QueryCustomerResult.Customer);
         if (result.QueryCustomerResult && result.QueryCustomerResult.Customer) {
-          console.log(result.QueryCustomerResult.Customer);
           for (var key in result.QueryCustomerResult.Customer) {
-            console.log(result.QueryCustomerResult.Customer[key]);
             if ((0, _lodashIsempty2['default'])(result.QueryCustomerResult.Customer[key])) {
               result.QueryCustomerResult.Customer[key] = '';
             }
