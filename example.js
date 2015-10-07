@@ -27,7 +27,7 @@ northern911API.connect(function(error) {
   northern911API.getVendorDumpURL(callback);
 
   northern911API.verifyCustomer({
-    phoneNumber: '6479250483',
+    phoneNumber: '6470001234',
     lastName: '',
     firstName: '',
     streetNumber: '1234',
@@ -41,7 +41,7 @@ northern911API.connect(function(error) {
   }, callback);
 
   northern911API.addOrUpdateCustomer({
-    phoneNumber: '6479250483',
+    phoneNumber: '6470001234',
     lastName: '',
     firstName: '',
     streetNumber: '1234',
@@ -54,7 +54,7 @@ northern911API.connect(function(error) {
     enhancedCapable: 'N'
   }, callback);
 
-  northern911API.queryCustomer('6479250483', callback);
+  northern911API.queryCustomer('6470001234', callback);
 
-  northern911API.deleteCustomer('6479250483', callback);
+  northern911API.deleteCustomer('6470001234', callback);
 });

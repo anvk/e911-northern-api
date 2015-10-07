@@ -1,6 +1,6 @@
 {
   "name": "northern911-api",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "anvk",
   "main": "dist/northern911-api.js",
   "description": "",

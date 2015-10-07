@@ -106,7 +106,7 @@ northern911API.connect(function(error) {
     return console.error(error);
   }
 
-  northern911API.queryCustomer('6479250483', function(error, result, body) {
+  northern911API.queryCustomer('6470001234', function(error, result, body) {
     console.log(body);
     console.log();
     console.log(result);
